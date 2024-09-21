@@ -17,6 +17,9 @@ class MedicoViewSet(ModelViewSet):
         
         return Response({"medicos": MedicoSerializer(medicos, many=True).data})
     
+    def create(self, request, *args, **kwargs):
+        request.data["agregado_por"] = self.request.user.id
+        return super().create(request, *args, **kwargs)
 
 class EspecialidadViewSet(ModelViewSet):
     queryset = Especialidad.objects.all()
