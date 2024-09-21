@@ -21,11 +21,13 @@ def login(request,  *args, **kwargs):
     serializer = LoginSerializer(data=request.data)
     if serializer.is_valid() is False:
         return Response(serializer.errors, status=400)
+    print(serializer.validated_data)
     authenticated_user = authenticate(
         username=serializer.validated_data["username"],
         password=serializer.validated_data["password"],
     )
     if authenticated_user is None:
+        print(authenticated_user)
         return Response({"error": "Invalid credentials"}, status=400)
     token, create = Token.objects.get_or_create(user=authenticated_user)
     return Response(
