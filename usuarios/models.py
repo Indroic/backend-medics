@@ -38,7 +38,7 @@ class Usuario(AbstractUser):
     
     update_at = models.DateTimeField(auto_now_add=True, null=False, blank=False, verbose_name="Fecha de Actualizacion")
     
-    avatar = ResizedImageField(upload_to=generar_nombre, null=True, blank=True, verbose_name="Avatar", size=[736, 736],  crop=['middle', 'center'], )
+    avatar = ResizedImageField(upload_to=generar_nombre, null=True, blank=True, verbose_name="Avatar", size=[736, 736],  crop=['middle', 'center'], unique=True, db_column="profile_image")
     
 
 
