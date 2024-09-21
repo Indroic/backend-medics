@@ -30,9 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-print(DEBUG)
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -117,6 +115,14 @@ DATABASES = {
     }
 }
 
+STORAGES = {
+    "default": {"BACKEND": "core.storage.SupabaseStorage"},
+    
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -165,6 +171,8 @@ STATIC_URL = "static/"
 # Here, they well be accessible at your-domain.onrender.com/static/... or yourcustomdomain.com/static/...
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 # This production code might break development mode, so we check whether we're in DEBUG mode
 
 # Default primary key field type
@@ -182,6 +190,11 @@ REST_FRAMEWORK = {
 }
 
 PHONENUMBER_DEFAULT_REGION = "VE"
+
+
+STATICFILES_DIRS = [
+    Path(BASE_DIR / "static" / "css" ),
+]
 
 
 UNFOLD = {
@@ -272,8 +285,10 @@ UNFOLD = {
     ],
 }
 
-STATICFILES_DIRS = [
-    Path(BASE_DIR / "static" / "css" ),
-]
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
+
+
+SUPABASE_URL = os.environ.get("SUPABASE_URL")
+SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+
