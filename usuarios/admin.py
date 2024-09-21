@@ -10,6 +10,7 @@ from django.contrib.auth.admin import UserAdmin
 
 class UsuarioAdmin(UserAdmin, ModelAdmin):
     add_form = forms.UserCreationForm
+    form = forms.UserChangeForm
     
     list_display = (
         "username",

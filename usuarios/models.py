@@ -23,6 +23,9 @@ def generar_nombre(instance, filename):
     # retorna el nuevo nombre
     return "avatars/{0}".format(nuevo_nombre)
 
+def generar_strings():
+    return "no-content."+(str(uuid.uuid4()).replace('-', ''))
+
 class Usuario(AbstractUser):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, blank=False, null=False)
     
@@ -32,13 +35,13 @@ class Usuario(AbstractUser):
     
     last_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="Primer Apellido")
     
-    email = models.EmailField(unique=True, blank=True, null=True, verbose_name="Correo Electronico")
+    email = models.EmailField(blank=True, null=True, verbose_name="Correo Electronico")
     
     create_at = models.DateTimeField(auto_now=True, null=False, blank=False, verbose_name="Fecha de Creacion")
     
     update_at = models.DateTimeField(auto_now_add=True, null=False, blank=False, verbose_name="Fecha de Actualizacion")
     
-    avatar = ResizedImageField(upload_to=generar_nombre, null=True, blank=True, verbose_name="Avatar", size=[736, 736],  crop=['middle', 'center'], unique=True, db_column="profile_image")
+    avatar = ResizedImageField(upload_to=generar_nombre, null=True, blank=True, verbose_name="Avatar", size=[736, 736],  crop=['middle', 'center'], db_column="profile_image")
     
 
 
