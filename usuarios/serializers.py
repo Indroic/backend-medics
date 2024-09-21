@@ -10,7 +10,6 @@ class UsuarioSerializer(serializers.ModelSerializer):
             "is_staff",
             "is_active",
             "last_login",
-            "date_joined",
-            "password",
+            "date_joined"
         ]
 
