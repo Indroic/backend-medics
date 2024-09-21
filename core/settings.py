@@ -63,11 +63,10 @@ INSTALLED_APPS = [
     "examenes",
     "medicos",
     "usuarios",
-    "tailwind_app",
     "corsheaders",
 ]
 
-TAILWIND_APP_NAME = "tailwind_app"
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -192,17 +191,6 @@ REST_FRAMEWORK = {
 PHONENUMBER_DEFAULT_REGION = "VE"
 
 
-JAZZMIN_SETTINGS = {
-    "site_title": "Sistema Medico",
-    "site_header": "Sistema Medico",
-    "site_brand": "Sistema Medico",
-    "welcome_sign": "Bienvenido al sistema medico",
-    "hide_apps": ["django_seeding", "authtoken"],
-    "related_modal_active": True,
-    "user_avatar": "avatar",
-    "show_ui_builder": True,
-}
-
 UNFOLD = {
     "SITE_TITLE": "Sistema Medico",
     "SITE_HEADER": "Sistema Medico",
@@ -292,7 +280,7 @@ UNFOLD = {
 }
 
 STATICFILES_DIRS = [
-    Path(BASE_DIR / "tailwind_app" / "static" / "css" / "dist"),
+    Path(BASE_DIR / "static" / "css" ),
 ]
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
