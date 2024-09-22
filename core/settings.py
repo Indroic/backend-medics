@@ -280,7 +280,7 @@ UNFOLD = {
         },
     ],
     "STYLES": [
-        lambda request: "/static/styles.css",
+        lambda request: "/static/css/styles.css",
     ],
 }
 
