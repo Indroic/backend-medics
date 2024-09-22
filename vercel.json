@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "buildCommand": "sh build.sh",
+    "buildCommand": "python manage.py collectstatic --noinput --clear && python manage.py migrate",
     "builds": [
         {
             "src": "core/wsgi.py",
