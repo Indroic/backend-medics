@@ -35,7 +35,7 @@ root_router.registry.extend(medicos_router.registry)
 
 
 urlpatterns = [
-    path('', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('api/', include(root_router.urls)),
     path('auth/', include(auth_urls)),
     path('csrf/', CSRFAPIView.as_view(), name="csrf"),
