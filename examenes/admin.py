@@ -11,6 +11,7 @@ class CategoriaAdmin(ModelAdmin):
     list_filter = ("create_at", "update_at")
     
     actions_row = ["delete_categoria"]
+    search_fields = ("categoria",)
     
     @action(
         description="Eliminar Categoria",
