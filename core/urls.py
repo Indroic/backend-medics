@@ -25,7 +25,7 @@ from customAuth.urls import urlpatterns as auth_urls
 from examenes.urls import router as examenes_router
 from medicos.urls import router as medicos_router
 
-from .views import get_csrf
+from .views import CSRFAPIView
 
 root_router = DefaultRouter()
 root_router.registry.extend(usuarios_router.registry)
@@ -38,7 +38,7 @@ urlpatterns = [
     path('', admin.site.urls),
     path('api/', include(root_router.urls)),
     path('auth/', include(auth_urls)),
-    path('csrf/', get_csrf),
+    path('csrf/', CSRFAPIView.as_view(), name="csrf"),
 ] 
 
 

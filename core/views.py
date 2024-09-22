@@ -1,6 +1,10 @@
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from django.middleware.csrf import get_token
-from django.views.decorators.csrf import csrf_exempt
 
-@csrf_exempt
-def get_csrf(request):
-    return {"csrf_token": get_token(request)}
+class CSRFAPIView(APIView):
+
+    def get(self, request, format=None):
+        csrf_token = get_token(request)
+        return Response({'csrf_token': csrf_token})
