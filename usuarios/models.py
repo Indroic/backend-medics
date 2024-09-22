@@ -35,7 +35,7 @@ class Usuario(AbstractUser):
     
     last_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="Primer Apellido")
     
-    email = models.EmailField(blank=True, null=True, verbose_name="Correo Electronico", unique=True)
+    email = models.EmailField(blank=True, null=True, verbose_name="Correo Electronico", unique=True, default=f"no-email.{str(uuid.uuid4()).replace('-', '')}")
     
     create_at = models.DateTimeField(auto_now=True, null=False, blank=False, verbose_name="Fecha de Creacion")
     
