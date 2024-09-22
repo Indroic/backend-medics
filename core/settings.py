@@ -71,12 +71,17 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
+
+
+CSRF_COOKIE_SECURE = False
+CSRF_USE_SESSIONS = False
 
 TEMPLATES = [
     {
@@ -279,7 +284,7 @@ UNFOLD = {
         },
     ],
     "STYLES": [
-        lambda request: "/static/css/styles.css",
+        lambda request: "/static/styles.css",
     ],
 }
 
