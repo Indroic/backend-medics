@@ -9,7 +9,6 @@ class EspecialidadSerializer(serializers.ModelSerializer):
 
 
 class MedicoSerializer(serializers.ModelSerializer):
-    especialidad = EspecialidadSerializer()
     
     class Meta:
         model = Medico
