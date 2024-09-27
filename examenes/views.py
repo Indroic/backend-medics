@@ -15,17 +15,6 @@ class ExamenViewSet(ModelViewSet):
         
         return Response({"examenes": ExamenSerializer(examenes, many=True).data})
     
-    def create(self, request, *args, **kwargs):
-        data = {**request.data, "id": request.user.id}
-        data_serialize = ExamenSerializer(data=data)
-        
-        if data_serialize.is_valid():
-            data_serialize.save()
-            
-            return Response(data_serialize.data, status=201)
-        
-        return Response(data_serialize.errors, status=400)
-    
 class CategoriaViewSet(ModelViewSet):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
