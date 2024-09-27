@@ -16,9 +16,16 @@ class ExamenViewSet(ModelViewSet):
         return Response({"examenes": ExamenSerializer(examenes, many=True).data})
     
     def create(self, request, *args, **kwargs):
-        data_serialize = ExamenSerializer(agregado_por=self.request.user, **request.data)
+        data = request.data
+        data["agregado_por"] = self.request.user.id
+        data_serialize = ExamenSerializer(data=data)
         
-        return super().create(request, *args, **kwargs)
+        if data_serialize.is_valid():
+            data_serialize.save()
+            
+            return Response(data_serialize.data, status=201)
+        
+        return Response(data_serialize.errors, status=400)
     
 class CategoriaViewSet(ModelViewSet):
     queryset = Categoria.objects.all()
