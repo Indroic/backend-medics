@@ -64,8 +64,8 @@ class Examen(models.Model):
 
     archivo = models.FileField(
         upload_to=upload_to,
-        blank=False,
-        null=False,
+        blank=True,
+        null=True,
         unique=False,
         verbose_name="Archivo",
     )
