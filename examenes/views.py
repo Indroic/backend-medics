@@ -16,7 +16,8 @@ class ExamenViewSet(ModelViewSet):
         return Response({"examenes": ExamenSerializer(examenes, many=True).data})
     
     def create(self, request, *args, **kwargs):
-        request.data["agregado_por"] = self.request.user.id
+        data_serialize = ExamenSerializer(agregado_por=self.request.user, **request.data)
+        
         return super().create(request, *args, **kwargs)
     
 class CategoriaViewSet(ModelViewSet):
