@@ -17,7 +17,7 @@ class ExamenViewSet(ModelViewSet):
     
     def create(self, request, *args, **kwargs):
         data = request.data
-        data["agregado_por"] = self.request.user.id
+        data["agregado_por"] = {**request.data, "id": request.user.id}
         data_serialize = ExamenSerializer(data=data)
         
         if data_serialize.is_valid():
