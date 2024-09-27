@@ -2,7 +2,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from .serializers import ExamenSerializer, CategoriaSerializer
+from .serializers import ExamenSerializer, CategoriaSerializer, ExamenListSerializer
 from .models import Examen, Categoria
 
 class ExamenViewSet(ModelViewSet):
@@ -13,7 +13,7 @@ class ExamenViewSet(ModelViewSet):
     def list(self, request, *args, **kwargs):
         examenes = Examen.objects.all().filter(agregado_por=self.request.user)
         
-        return Response({"examenes": ExamenSerializer(examenes, many=True).data})
+        return Response({"examenes": ExamenListSerializer(examenes, many=True).data})
     
 class CategoriaViewSet(ModelViewSet):
     queryset = Categoria.objects.all()

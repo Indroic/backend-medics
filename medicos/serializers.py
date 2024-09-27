@@ -13,3 +13,9 @@ class MedicoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medico
         fields = '__all__'
+        
+class MedicoListSerializer(serializers.ModelSerializer):
+    especialidad = EspecialidadSerializer()
+    class Meta:
+        model = Medico
+        fields = '__all__'

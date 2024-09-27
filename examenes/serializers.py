@@ -11,3 +11,11 @@ class ExamenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Examen
         fields = '__all__'
+        
+class ExamenListSerializer(serializers.ModelSerializer):
+    categoria = CategoriaSerializer()
+    
+    class Meta:
+        model = Examen
+        fields = '__all__'
+        
