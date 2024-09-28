@@ -45,6 +45,7 @@ class MedicoAdmin(ModelAdmin):
                 "fields": (
                     "nombre",
                     "apellido",
+                    "foto",
                     "telefono",
                     "institucion",
                     "especialidad",

@@ -58,7 +58,7 @@ class Medico(models.Model):
     
     id = models.UUIDField(default=uuid.uuid4, null=False, blank=False, primary_key=True, verbose_name="ID")
     
-    foto = ResizedImageField(upload_to=generar_nombre, null=True, blank=True, verbose_name="Avatar", size=[736, 736],  crop=['middle', 'center'], db_column="medic_image")
+    foto = ResizedImageField(upload_to=generar_nombre, null=True, blank=True, verbose_name="Foto de Medico", size=[736, 736],  crop=['middle', 'center'], db_column="medic_image")
     
     create_at = models.DateTimeField(auto_now=True, null=False, blank=False, verbose_name="Fecha de Creacion")
     
