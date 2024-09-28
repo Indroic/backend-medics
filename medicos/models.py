@@ -18,7 +18,7 @@ def generar_nombre(instance, filename):
     # obtiene la extension del archivo
     extension = filename.split('.')[-1]
     # obtiene el nombre del usuario
-    usuario = instance.username
+    usuario = instance.nombre
     
     # genera una cadena de caracteres para el nombre del archivo y elimina todos los "-" que tenga
     caracteres = str(uuid.uuid4()).replace('-', '')
