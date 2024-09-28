@@ -7,6 +7,27 @@ from django.urls import reverse
 
 from usuarios.models import Usuario
 
+from django_resized import ResizedImageField
+
+def generar_nombre(instance, filename):
+    """
+    Genera un nombre unico para el archivo y lo retorna
+    """
+
+
+    # obtiene la extension del archivo
+    extension = filename.split('.')[-1]
+    # obtiene el nombre del usuario
+    usuario = instance.username
+    
+    # genera una cadena de caracteres para el nombre del archivo y elimina todos los "-" que tenga
+    caracteres = str(uuid.uuid4()).replace('-', '')
+    # crea el nuevo nombre
+    nuevo_nombre = usuario + "." + caracteres + "." + extension
+    # retorna el nuevo nombre
+    return "medicos-fotos/{0}".format(nuevo_nombre)
+
+
 # Create your models here.
 class Especialidad(models.Model):
     especialidad = models.CharField(max_length=100, unique=True, verbose_name="Especialidad")
@@ -36,6 +57,8 @@ class Medico(models.Model):
     agregado_por = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=False, null=False, unique=False, verbose_name="Agregado Por")
     
     id = models.UUIDField(default=uuid.uuid4, null=False, blank=False, primary_key=True, verbose_name="ID")
+    
+    foto = ResizedImageField(upload_to=generar_nombre, null=True, blank=True, verbose_name="Avatar", size=[736, 736],  crop=['middle', 'center'], db_column="medic_image")
     
     create_at = models.DateTimeField(auto_now=True, null=False, blank=False, verbose_name="Fecha de Creacion")
     
