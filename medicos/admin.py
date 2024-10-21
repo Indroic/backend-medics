@@ -34,9 +34,7 @@ class MedicoAdmin(ModelAdmin):
         "update_at",
     )
     list_filter = ("create_at", "update_at", "especialidad")
-    search_fields = ("nombre", "apellido", "institucion", "especialidad", "agregado_por")
-    
-    search_fields = ("nombre", "apellido", "institucion", "especialidad", "agregado_por")
+    search_fields = ("nombre", "apellido", "institucion")
 
     fieldsets = (
         (
