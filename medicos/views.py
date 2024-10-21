@@ -21,6 +21,12 @@ class MedicoViewSet(ModelViewSet):
         request.data["agregado_por"] = self.request.user.id
 
         return super().create(request, *args, **kwargs)
+    def partial_update(self, request, *args, **kwargs):
+        super().partial_update(request, *args, **kwargs)
+        medicoActualizado = Medico.objects.get(id=request.data["id"])
+        
+
+        return Response({"medico": MedicoListSerializer(medicoActualizado).data})
 
 class EspecialidadViewSet(ModelViewSet):
     queryset = Especialidad.objects.all()
