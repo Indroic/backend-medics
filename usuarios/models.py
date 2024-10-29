@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django_resized import ResizedImageField
 from django.urls import reverse
 from django.utils.html import format_html
+from phonenumber_field.modelfields import PhoneNumberField
 
 def generar_nombre(instance, filename):
     """
@@ -26,6 +27,14 @@ def generar_nombre(instance, filename):
 def generar_strings():
     return "no-content."+(str(uuid.uuid4()).replace('-', ''))
 
+class Genero(models.Model):
+    genero = models.CharField(max_length=40, unique=True, verbose_name="Genero")
+    create_at = models.DateTimeField(auto_now=True, null=False, blank=False, verbose_name="Fecha de Creación")
+    update_at = models.DateTimeField(auto_now_add=True, null=False, blank=False, verbose_name="Fecha de Actualización")
+    
+    def __str__(self):
+        return self.genero
+
 class Usuario(AbstractUser):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, blank=False, null=False)
     
@@ -35,13 +44,31 @@ class Usuario(AbstractUser):
     
     last_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="Primer Apellido")
     
-    email = models.EmailField(blank=True, null=True, verbose_name="Correo Electronico", unique=True, default=f"no-email.{str(uuid.uuid4()).replace('-', '')}@noemail.com")
+    email = models.EmailField(blank=True, null=True, verbose_name="Correo Electrónico", unique=True, default=f"no-email.{str(uuid.uuid4()).replace('-', '')}@noemail.com")
     
-    create_at = models.DateTimeField(auto_now=True, null=False, blank=False, verbose_name="Fecha de Creacion")
+    create_at = models.DateTimeField(auto_now=True, null=False, blank=False, verbose_name="Fecha de Creación")
     
-    update_at = models.DateTimeField(auto_now_add=True, null=False, blank=False, verbose_name="Fecha de Actualizacion")
+    update_at = models.DateTimeField(auto_now_add=True, null=False, blank=False, verbose_name="Fecha de Actualización")
     
     avatar = ResizedImageField(upload_to=generar_nombre, null=True, blank=True, verbose_name="Avatar", size=[736, 736],  crop=['middle', 'center'], db_column="profile_image")
     
+    emergency_contact = PhoneNumberField(blank=False, null=False, unique=True, verbose_name="Contacto de Emergencia")
 
-
+    patologia = models.CharField(max_length=255, blank=False, null=False, unique=False, verbose_name="Patología")
+    
+    genero = models.ForeignKey(Genero, on_delete=models.CASCADE, blank=False, null=False, unique=False, verbose_name="Genero")
+    
+    alergias = models.CharField(max_length=255, blank=False, null=False, unique=False, verbose_name="Alergias")
+    
+class Tension(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, blank=False, null=False)
+    
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=False, null=False, unique=False, verbose_name="Usuario")
+    
+    sistolic = models.IntegerField(blank=False, null=False, unique=False, verbose_name="Sistólica")
+    
+    diastolic = models.IntegerField(blank=False, null=False, unique=False, verbose_name="Diastólica")
+    
+    create_at = models.DateTimeField(auto_now=True, null=False, blank=False, verbose_name="Fecha de Creación")
+    
+    update_at = models.DateTimeField(auto_now_add=True, null=False, blank=False, verbose_name="Fecha de Actualización")

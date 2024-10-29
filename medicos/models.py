@@ -5,13 +5,13 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.html import format_html
 from django.urls import reverse
 
-from usuarios.models import Usuario
+from usuarios.models import Usuario, Genero
 
 from django_resized import ResizedImageField
 
 def generar_nombre(instance, filename):
     """
-    Genera un nombre unico para el archivo y lo retorna
+    Genera un nombre único para el archivo y lo retorna
     """
 
 
@@ -32,9 +32,11 @@ def generar_nombre(instance, filename):
 class Especialidad(models.Model):
     especialidad = models.CharField(max_length=100, unique=True, verbose_name="Especialidad")
     
-    create_at = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name="Fecha de Creacion")
+    create_at = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name="Fecha de Creación")
     
-    update_at = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="Fecha de Actualizacion")
+    update_at = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="Fecha de Actualización")
+    
+    genero = models.ForeignKey(Genero, on_delete=models.CASCADE, blank=False, null=False, unique=False, verbose_name="Genero")
     
     class Meta:
         verbose_name = "Especialidad"
@@ -60,9 +62,9 @@ class Medico(models.Model):
     
     foto = ResizedImageField(upload_to=generar_nombre, null=True, blank=True, verbose_name="Foto de Medico", size=[736, 736],  crop=['middle', 'center'], db_column="medic_image")
     
-    create_at = models.DateTimeField(auto_now=True, null=False, blank=False, verbose_name="Fecha de Creacion")
+    create_at = models.DateTimeField(auto_now=True, null=False, blank=False, verbose_name="Fecha de Creación")
     
-    update_at = models.DateTimeField(auto_now_add=True, null=False, blank=False, verbose_name="Fecha de Actualizacion")
+    update_at = models.DateTimeField(auto_now_add=True, null=False, blank=False, verbose_name="Fecha de Actualización")
     
     class Meta:
         verbose_name = "Medico"
@@ -70,3 +72,22 @@ class Medico(models.Model):
     
     def __str__(self):
         return self.nombre + " " + self.apellido + " - " + self.institucion + " - " + self.especialidad.especialidad
+
+class Consulta(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, blank=False, null=False)
+    
+    medico = models.ForeignKey(Medico, on_delete=models.CASCADE, blank=False, null=False, unique=False, verbose_name="Medico")
+    
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=False, null=False, unique=False, verbose_name="Usuario")
+    
+    diagnostico = models.TextField(blank=False, null=False, unique=False, verbose_name="Diagnostico")
+    
+    tratamiento = models.TextField(blank=False, null=False, unique=False, verbose_name="Tratamiento")
+    
+    create_at = models.DateTimeField(auto_now=True, null=False, blank=False, verbose_name="Fecha de Creación")
+    
+    update_at = models.DateTimeField(auto_now_add=True, null=False, blank=False, verbose_name="Fecha de Actualización")
+    
+    class Meta:
+        verbose_name = "Consulta"
+        verbose_name_plural = "Consultas"
