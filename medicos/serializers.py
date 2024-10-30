@@ -1,8 +1,11 @@
 from rest_framework import serializers
 from .models import Medico, Especialidad
 
+from usuarios.serializers import GeneroSerializer
+
 
 class EspecialidadSerializer(serializers.ModelSerializer):
+    genero = GeneroSerializer()
     class Meta:
         model = Especialidad
         fields = '__all__'
