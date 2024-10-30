@@ -6,8 +6,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 
-from .models import Usuario
-from .serializers import UsuarioSerializer
+from .models import Usuario, Genero, Tension
+from .serializers import UsuarioSerializer, GeneroSerializer, TensionSerializer
 
 
 class UsuarioViewSet(ModelViewSet):
@@ -36,4 +36,14 @@ class ChangeUserProfileViewSet(ModelViewSet):
     
     def destroy(self, request, *args, **kwargs):
         return Response({"error": "Method not allowed"}, status=405)
+
+class GeneroViewSet(ModelViewSet):
+    queryset = Genero.objects.all()
+    serializer_class = GeneroSerializer
+    permission_classes = [IsAuthenticated]
+    
+class TensionViewSet(ModelViewSet):
+    queryset = Tension.objects.all()
+    serializer_class = TensionSerializer
+    permission_classes = [IsAuthenticated]
     

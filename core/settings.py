@@ -227,6 +227,28 @@ UNFOLD = {
                 ],
             },
             {
+                "title": "Personas",
+                "icon": "people",
+                "separatror": True,
+                "collapsible": True,
+                "permission": lambda request: request.user.is_superuser,
+                "items": [
+                    
+                    {
+                        "title": "Generos",
+                        "icon": "wc",
+                        "link": reverse_lazy("admin:usuarios_genero_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": "Registros de Tension",
+                        "icon": "monitor_heart",
+                        "link": reverse_lazy("admin:usuarios_tension_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    }
+                ]    
+            },
+            {
                 "title": "Medicos",
                 "icon": "user",
                 "separatror": True,

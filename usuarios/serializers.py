@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Usuario
+from .models import Usuario, Genero, Tension
 
 
 class UsuarioSerializer(serializers.ModelSerializer):
@@ -12,4 +12,16 @@ class UsuarioSerializer(serializers.ModelSerializer):
             "last_login",
             "date_joined"
         ]
+        
+
+class GeneroSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genero
+        fields = '__all__'
+        
+
+class TensionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tension
+        fields = '__all__'
 

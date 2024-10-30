@@ -36,7 +36,7 @@ class Especialidad(models.Model):
     
     update_at = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="Fecha de Actualización")
     
-    genero = models.ForeignKey(Genero, on_delete=models.CASCADE, blank=False, null=False, unique=False, verbose_name="Genero")
+    genero = models.ForeignKey(Genero, on_delete=models.CASCADE, blank=True, null=True, unique=False, verbose_name="Genero")
     
     class Meta:
         verbose_name = "Especialidad"

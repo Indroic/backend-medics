@@ -2,8 +2,6 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django_resized import ResizedImageField
-from django.urls import reverse
-from django.utils.html import format_html
 from phonenumber_field.modelfields import PhoneNumberField
 
 def generar_nombre(instance, filename):
@@ -54,11 +52,11 @@ class Usuario(AbstractUser):
     
     emergency_contact = PhoneNumberField(blank=False, null=False, unique=True, verbose_name="Contacto de Emergencia")
 
-    patologia = models.CharField(max_length=255, blank=False, null=False, unique=False, verbose_name="Patología")
+    patologia = models.CharField(max_length=255, blank=True, null=True, unique=False, verbose_name="Patología")
     
-    genero = models.ForeignKey(Genero, on_delete=models.CASCADE, blank=False, null=False, unique=False, verbose_name="Genero")
+    genero = models.ForeignKey(Genero, on_delete=models.CASCADE, blank=True, null=True, unique=False, verbose_name="Genero")
     
-    alergias = models.CharField(max_length=255, blank=False, null=False, unique=False, verbose_name="Alergias")
+    alergias = models.CharField(max_length=255, blank=True, null=True, unique=False, verbose_name="Alergias")
     
 class Tension(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, blank=False, null=False)
