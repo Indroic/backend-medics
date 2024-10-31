@@ -50,7 +50,7 @@ class Usuario(AbstractUser):
     
     avatar = ResizedImageField(upload_to=generar_nombre, null=True, blank=True, verbose_name="Avatar", size=[736, 736],  crop=['middle', 'center'], db_column="profile_image")
     
-    emergency_contact = PhoneNumberField(blank=False, null=False, unique=True, verbose_name="Contacto de Emergencia")
+    telefono = PhoneNumberField(blank=False, null=False, unique=True, verbose_name="Contacto de Emergencia")
 
     patologia = models.CharField(max_length=255, blank=True, null=True, unique=False, verbose_name="Patología")
     
