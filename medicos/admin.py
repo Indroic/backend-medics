@@ -69,6 +69,23 @@ class ConsultaAdmin(ModelAdmin):
     list_filter = ("create_at", "update_at")
     search_fields = ("medico", "usuario")
     
+    fieldsets = (
+        (
+            None,
+            {"fields": ("medico", "usuario", "diagnostico", "tratamiento")},
+        ),
+    )
+    
+    actions_row = ["delete_consulta"]
+    
+    @action(
+        description="izar Consulta",
+        url_path="delete-consulta"
+    )
+    def delete_consulta(self, request, object_id):
+        
+        return redirect(reverse("admin:medicos_consulta_delete", args=[object_id]))
+    
 
 
 admin.site.register(Especialidad, EspecialidadAdmin)
