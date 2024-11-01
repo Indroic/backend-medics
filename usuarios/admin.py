@@ -39,7 +39,7 @@ class UsuarioAdmin(UserAdmin, ModelAdmin):
                     "last_name",
                     "ci",
                     "email",
-                    "emergency_contact",
+                    "telefono",
                     "patologia",
                     "genero",
                     "alergias",

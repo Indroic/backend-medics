@@ -37,20 +37,11 @@ def login(request,  *args, **kwargs):
 def register(request, *args, **kwargs):
     serializer = UsuarioSerializer(data=request.data)
     
-    if serializer.is_valid() is False:
-        return Response(serializer.errors, status=400)
+    if serializer.is_valid():
+        serializer.save()
     
-    user = Usuario.objects.create_user(
-        username=serializer.validated_data["username"],
-        password=serializer.validated_data["password"],
-        first_name=serializer.validated_data["first_name"],
-        last_name=serializer.validated_data["last_name"],
-        email=serializer.validated_data["email"],
-        ci=serializer.validated_data["ci"],
-    )
-    
-    serializer = UsuarioSerializer(user)
-    
-    return Response(serializer.data, status=201)
+        return Response(serializer.data, status=201)
+
+    return Response(serializer.errors, status=400)
     
     
