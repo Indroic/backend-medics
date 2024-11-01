@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 
 from .models import Usuario, Genero, Tension
-from .serializers import UsuarioSerializer, GeneroSerializer, TensionSerializer
+from .serializers import UsuarioSerializer, GeneroSerializer, TensionSerializer, TensionListSerializer
 
 
 class UsuarioViewSet(ModelViewSet):
@@ -49,3 +49,12 @@ class TensionViewSet(ModelViewSet):
         get_tension = self.queryset.filter(usuario=self.request.user)
         serialize: TensionSerializer = self.get_serializer(get_tension, many=True)
         return Response(serialize.data, status=200)
+    
+    def create(self, request, *args, **kwargs):
+        request.data["usuario"] = self.request.user.id
+        Tension = Tension.objects.get(
+            id=super().create(request, *args, **kwargs).data["id"]
+        )
+        
+        return Response(data=TensionListSerializer(Tension).data)
+        

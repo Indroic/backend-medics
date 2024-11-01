@@ -24,4 +24,10 @@ class TensionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tension
         fields = '__all__'
+        
+class TensionListSerializer(serializers.ModelSerializer):
+    usuario = UsuarioSerializer(read_only=True)
+    class Meta:
+        model = Tension
+        fields = '__all__'
 
