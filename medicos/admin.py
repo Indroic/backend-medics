@@ -1,6 +1,6 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin
-from .models import Medico, Especialidad
+from .models import Medico, Especialidad, Consulta
 from unfold.decorators import action
 from django.urls import reverse
 from django.shortcuts import redirect
@@ -64,7 +64,13 @@ class MedicoAdmin(ModelAdmin):
         return redirect(reverse("admin:medicos_medico_delete", args=[object_id]))
     
     
+class ConsultaAdmin(ModelAdmin):
+    list_display = ("id", "medico", "usuario", "create_at", "update_at")
+    list_filter = ("create_at", "update_at")
+    search_fields = ("medico", "usuario")
+    
 
 
 admin.site.register(Especialidad, EspecialidadAdmin)
 admin.site.register(Medico, MedicoAdmin)
+admin.site.register(Consulta, ConsultaAdmin)
