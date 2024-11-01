@@ -262,6 +262,12 @@ UNFOLD = {
                         "permission": lambda request: request.user.is_superuser,
                     },
                     {
+                        "title": "Consultas",
+                        "icon": "book",
+                        "link": reverse_lazy("admin:medicos_consulta_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
                         "title": "Especialidades",
                         "icon": "book",
                         "link": reverse_lazy("admin:medicos_especialidad_changelist"),
