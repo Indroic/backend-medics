@@ -52,9 +52,9 @@ class TensionViewSet(ModelViewSet):
     
     def create(self, request, *args, **kwargs):
         request.data["usuario"] = self.request.user.id
-        Tension = Tension.objects.get(
+        tension = Tension.objects.get(
             id=super().create(request, *args, **kwargs).data["id"]
         )
         
-        return Response(data=TensionListSerializer(Tension).data)
+        return Response(data=TensionListSerializer(tension).data)
         
