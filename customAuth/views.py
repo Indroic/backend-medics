@@ -49,7 +49,6 @@ def register(request, *args, **kwargs):
             ci=serializer.validated_data["ci"],
             genero=serializer.validated_data["genero"],
             telefono=serializer.validated_data["telefono"],
-            avatar=serializer.validated_data["avatar"],
         )
 
         
