@@ -16,8 +16,9 @@ from .serializers import LoginSerializer
 
 # Create your views here.
 
+
 @api_view(["POST"])
-def login(request,  *args, **kwargs):
+def login(request, *args, **kwargs):
     serializer = LoginSerializer(data=request.data)
     if serializer.is_valid() is False:
         return Response(serializer.errors, status=400)
@@ -32,16 +33,29 @@ def login(request,  *args, **kwargs):
         {"token": token.key, "user": UsuarioSerializer(authenticated_user).data},
         status=200,
     )
-    
+
+
 @api_view(["POST"])
 def register(request, *args, **kwargs):
     serializer = UsuarioSerializer(data=request.data)
-    
+
     if serializer.is_valid():
-        serializer.save()
-    
-        return Response(serializer.data, status=201)
+        user = Usuario.objects.create_user(
+            username=serializer.validated_data["username"],
+            password=serializer.validated_data["password"],
+            first_name=serializer.validated_data["first_name"],
+            last_name=serializer.validated_data["last_name"],
+            email=serializer.validated_data["email"],
+            ci=serializer.validated_data["ci"],
+            genero=serializer.validated_data["genero"],
+            telefono=serializer.validated_data["telefono"],
+            alergias=serializer.validated_data["alergias"],
+            patologia=serializer.validated_data["patologia"],
+            avatar=serializer.validated_data["avatar"],
+        )
+
+        
+
+        return Response(data=UsuarioSerializer(user).data, status=201)
 
     return Response(serializer.errors, status=400)
-    
-    
