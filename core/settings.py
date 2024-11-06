@@ -31,7 +31,7 @@ env = environ.Env(
     DB_PORT=(int, 0),
     DB=(str, ""),
 )
-env.read_env(os.path.join(BASE_DIR, ".env"))
+env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
