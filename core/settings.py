@@ -75,7 +75,6 @@ INSTALLED_APPS = [
 ]
 
 
-
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -130,18 +129,6 @@ DATABASES = {
     }
 }
 
-if env("PRODUCTION"):
-    STORAGES = {
-        "default": {"BACKEND": "core.storage.SupabaseStorage"},
-        
-        "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-        },
-    }
-else:
-    STORAGES = {
-        "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
-    }
 
 
 # Password validation
@@ -174,9 +161,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-MEDIA_URL = "/media/"
-
-MEDIA_ROOT = Path(BASE_DIR / "media")
 
 
 # Static files (CSS, JavaScript, Images)
@@ -190,7 +174,7 @@ STATIC_URL = "static/"
 # This setting informs Django of the URI path from which your static files will be served to users
 # Here, they well be accessible at your-domain.onrender.com/static/... or yourcustomdomain.com/static/...
 
-STATIC_ROOT = os.path.join(BASE_DIR / 'static')
+STATIC_ROOT = os.path.join(BASE_DIR / "static")
 
 # This production code might break development mode, so we check whether we're in DEBUG mode
 
@@ -209,11 +193,6 @@ REST_FRAMEWORK = {
 }
 
 PHONENUMBER_DEFAULT_REGION = "VE"
-
-
-STATICFILES_DIRS = [
-    Path(BASE_DIR / "static" / "css" ),
-]
 
 
 UNFOLD = {
@@ -249,7 +228,6 @@ UNFOLD = {
                 "collapsible": True,
                 "permission": lambda request: request.user.is_superuser,
                 "items": [
-                    
                     {
                         "title": "Generos",
                         "icon": "wc",
@@ -261,8 +239,8 @@ UNFOLD = {
                         "icon": "monitor_heart",
                         "link": reverse_lazy("admin:usuarios_tension_changelist"),
                         "permission": lambda request: request.user.is_superuser,
-                    }
-                ]    
+                    },
+                ],
             },
             {
                 "title": "Medicos",
@@ -340,4 +318,20 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 1800000
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+
+
+if env("PRODUCTION"):
+    STORAGES = {
+        "default": {"BACKEND": "core.storage.SupabaseStorage"},
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+else:
+    STORAGES = {
+        "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    }
+    MEDIA_URL = "/media/"
+
+    MEDIA_ROOT = Path(BASE_DIR / "media")
 
