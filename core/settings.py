@@ -12,16 +12,26 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from django.urls import reverse_lazy
-from django.conf.urls.static import static
-from dotenv import load_dotenv
+
 
 import os
+import environ
 
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env(
+    PRODUCTION=(bool, False),
+    SUPABASE_URL=(str, ""),
+    SUPABASE_KEY=(str, ""),
+    DB_USER=(str, ""),
+    DB_PASSWORD=(str, ""),
+    DB_HOST=(str, ""),
+    DB_PORT=(int, 0),
+    DB=(str, ""),
+)
+env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -30,7 +40,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not env("PRODUCTION")
 
 ALLOWED_HOSTS = ["*"]
 
@@ -120,13 +130,18 @@ DATABASES = {
     }
 }
 
-STORAGES = {
-    "default": {"BACKEND": "core.storage.SupabaseStorage"},
-    
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+if env("PRODUCTION"):
+    STORAGES = {
+        "default": {"BACKEND": "core.storage.SupabaseStorage"},
+        
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+else:
+    STORAGES = {
+        "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    }
 
 
 # Password validation
