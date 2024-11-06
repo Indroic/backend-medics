@@ -21,17 +21,28 @@ import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env(
-    PRODUCTION=(bool, False),
+env = environ.Env(    
+    DJANGO_SUPERUSER_PASSWORD=(str, ''),
+    DJANGO_SUPERUSER_USERNAME=(str, ''),
+    DJANGO_SUPERUSER_EMAIL=(str, ''),
+    DEBUG=(bool, False),
+    SECRET_KEY=(str, ""),
+    POSTGRES_URL=(str, ""),
+    POSTGRES_PRISMA_URL=(str, ""),
     SUPABASE_URL=(str, ""),
-    SUPABASE_KEY=(str, ""),
+    NEXT_PUBLIC_SUPABASE_URL=(str, ""),
+    POSTGRES_URL_NON_POOLING=(str, ""),
+    SUPABASE_JWT_SECRET=(str, ""),
     POSTGRES_USER=(str, ""),
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=(str, ""),
     POSTGRES_PASSWORD=(str, ""),
+    POSTGRES_DATABASE=(str, "postgres"),
+    SUPABASE_SERVICE_ROLE_KEY=(str, ""),
     POSTGRES_HOST=(str, ""),
+    SUPABASE_ANON_KEY=(str, ""),
     POSTGRES_PORT=(int, 0),
-    POSTGRES_DATABASE=(str, ""),
 )
-env.read_env()
+env.read_env(Path(BASE_DIR / ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -316,8 +327,8 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 DATA_UPLOAD_MAX_MEMORY_SIZE = 1800000
 FILE_UPLOAD_MAX_MEMORY_SIZE = 1800000
 
-SUPABASE_URL = os.environ.get("SUPABASE_URL")
-SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+SUPABASE_URL = env("SUPABASE_URL")
+SUPABASE_KEY = env("SUPABASE_SERVICE_ROLE_KEY")
 
 
 if env("PRODUCTION"):
