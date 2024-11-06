@@ -41,6 +41,7 @@ env = environ.Env(
     POSTGRES_HOST=(str, ""),
     SUPABASE_ANON_KEY=(str, ""),
     POSTGRES_PORT=(int, 0),
+    PRODUCTION=(bool, False),
 )
 env.read_env(Path(BASE_DIR / ".env"))
 
