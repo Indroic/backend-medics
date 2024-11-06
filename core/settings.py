@@ -188,6 +188,7 @@ STATIC_URL = "static/"
 
 STATIC_ROOT = os.path.join(BASE_DIR / "static")
 
+
 # This production code might break development mode, so we check whether we're in DEBUG mode
 
 # Default primary key field type
@@ -333,6 +334,10 @@ SUPABASE_KEY = env("SUPABASE_SERVICE_ROLE_KEY")
 
 
 if env("PRODUCTION"):
+    
+    STATICFILES_DIRS = [
+        Path(BASE_DIR / "static" / "css" ),
+    ]
     STORAGES = {
         "default": {"BACKEND": "core.storage.SupabaseStorage"},
         "staticfiles": {
