@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "medicos",
     "usuarios",
     "corsheaders",
+    "reportes",
 ]
 
 
