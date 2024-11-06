@@ -43,7 +43,7 @@ env = environ.Env(
     POSTGRES_PORT=(int, 0),
     PRODUCTION=(bool, False),
 )
-env.read_env(Path(BASE_DIR / ".env"))
+env.read_env(Path(BASE_DIR / ".env").resolve())
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
