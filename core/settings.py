@@ -25,11 +25,11 @@ env = environ.Env(
     PRODUCTION=(bool, False),
     SUPABASE_URL=(str, ""),
     SUPABASE_KEY=(str, ""),
-    DB_USER=(str, ""),
-    DB_PASSWORD=(str, ""),
-    DB_HOST=(str, ""),
-    DB_PORT=(int, 0),
-    DB=(str, ""),
+    POSTGRES_USER=(str, ""),
+    POSTGRES_PASSWORD=(str, ""),
+    POSTGRES_HOST=(str, ""),
+    POSTGRES_PORT=(int, 0),
+    POSTGRES_DATABASE=(str, ""),
 )
 env.read_env()
 
@@ -118,11 +118,11 @@ WSGI_APPLICATION = "core.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DATABASE"),
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("POSTGRES_HOST"),
-        "PORT": os.getenv("POSTGRES_PORT"),
+        "NAME": env("POSTGRES_DATABASE"),
+        "USER": env("POSTGRES_USER"),
+        "PASSWORD": env("POSTGRES_PASSWORD"),
+        "HOST": env("POSTGRES_HOST"),
+        "PORT": env("POSTGRES_PORT"),
         "OPTIONS": {
             "sslmode": "require",
         },
