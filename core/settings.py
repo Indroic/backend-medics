@@ -340,9 +340,6 @@ if env("PRODUCTION"):
         },
     }
 else:
-    STORAGES = {
-        "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
-    }
     MEDIA_URL = "/media/"
 
     MEDIA_ROOT = Path(BASE_DIR / "media")
